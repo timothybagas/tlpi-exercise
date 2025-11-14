@@ -1,6 +1,9 @@
 # Ignore everything
 *
 
+# Don't ignore directories (so Git can traverse them)
+!*/
+
 # Except:
 !.gitignore
 !*.c
