@@ -9,3 +9,4 @@
 !*.c
 !*.h
 !Makefile
+!*.md
