@@ -43,4 +43,14 @@ Is a process with the following user IDs privileged? Explain your answer.
 Implemented in `93.c`.
 
 ## 9.4
+```
+uid_t euid = geteuid();
+// setuid and seteuid cannot restore effective UID from saved SUID
 
+// 9.4.a) Suspend then resume
+setreuid(-1, getuid()); // Suspend. Alternative: setresuid(-1, getuid(), -1);
+setreuid(-1, euid); // Resume. Alternative: setresuid(-1, euid, -1);
+
+// 9.4.b) Drop permanently
+setreuid(geteuid(), getuid()); // Drop. Alternative: setresuid(getuid(), getuid(), getuid());
+```
