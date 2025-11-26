@@ -54,3 +54,12 @@ setreuid(-1, euid); // Resume. Alternative: setresuid(-1, euid, -1);
 // 9.4.b) Drop permanently
 setreuid(geteuid(), getuid()); // Drop. Alternative: setresuid(getuid(), getuid(), getuid());
 ```
+
+## 9.5
+Same as `9.4` since below is the output of program `9.4`:
+```
+before suspended: r: 1000, e: 0, s: 0
+after suspended: r: 1000, e: 1000, s: 0
+after resumed: r: 1000, e: 0, s: 0
+```
+**NOTE:** Need to `chown u+s <output-binary>` to get above output.
