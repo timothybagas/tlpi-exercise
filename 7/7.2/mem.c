@@ -30,6 +30,7 @@ metablock *find_first_free(size_t size) {
 }
 
 metablock *append_block(size_t size) {
+  printf("> append_block: size: %ld\n", (long) size);
 	metablock *new = sbrk(0);
 	if (new == (void *) -1) {
 		fprintf(stderr, "append_block: sbrk(0)");
@@ -40,25 +41,10 @@ metablock *append_block(size_t size) {
 		return NULL;
 	}
 	new->size = size;
-	new->free = 0;
+	new->free = 1;
 	new->prev = tail;
 	if (tail) tail->next = new;
 	return (tail = new);
-}
-
-void split_block(metablock *block, size_t size) {
-	assert(block->size > size);
-
-	size_t remaining = block->size - size;	
-	if (remaining <= META_SIZE) return;
-
-	metablock *new = (void *) block + size;
-	new->size = remaining;
-	new->free = 1;
-
-	new->next = block->next;
-	new->prev = block;
-	block->next = new;
 }
 
 void *mmalloc(size_t size) {
@@ -67,13 +53,10 @@ void *mmalloc(size_t size) {
 		base = append_block(size);
 	}
 	block = find_first_free(size);
-
 	if (block == NULL) {
 		block = append_block(size);
-	} else if (block->size > size) {
-		split_block(block, size);
 	}
-	block->free = 0;
+  block->free = 0;
 	return (block + 1);
 }
 
@@ -96,13 +79,13 @@ void mfree(void *ptr) {
 	}
 }
 
-#ifdef DEBUG_MMALOC
-void printlist() {
+void debug() {
+  printf("===================\n");
 	metablock *it = base;
 	int count = 0;
 	while (it) {
-		printf("[node: %d] size: %ld\n", count++, (long) it->size);
+		printf("[node: %d] size: %ld, free: %d\n", count++, (long) it->size, it->free);
 		it = it->next;
 	}
+  printf("===================\n");
 }
-#endif
