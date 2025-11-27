@@ -19,4 +19,4 @@ value.
 ## 8.2
 > Implement `getpwnam()` using `setpwent()`, `getpwent()`, and `endpwent()`.
 
-Implemented within the `8.2` directory.
+Implemented within the `82` directory.

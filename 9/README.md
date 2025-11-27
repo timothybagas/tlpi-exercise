@@ -40,7 +40,7 @@ Is a process with the following user IDs privileged? Explain your answer.
 **Answer:** No, regardless of `real=0`, the effective ID does not have privilege access.
 
 ## 9.3
-Implemented in `93.c`.
+Implemented in `93` directory.
 
 ## 9.4
 ```
