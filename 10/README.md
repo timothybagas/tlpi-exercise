@@ -121,13 +121,13 @@ char *strptime(const char *str, const char *format, struct tm *timeptr);
 The glibc  implementation  of  `strptime()`  doesn’t  modify  those  fields  of
 the  tmstructure  that  are  not  initialized  by  specifiers  in  `format`.
 
-## Timezones
+## 10.3 Timezones
 
 These files reside in the directory `/usr/share/zoneinfo`. The  local  time
 for  the  system  is  defined  by  the  timezone  file  `/etc/localtime`, which is
 often linked to one of the files in `/usr/share/zoneinfo`.
 
-## Locales
+## 10.4 Locales
 
 Locale  information  is  maintained  in  a  directory  hierarchy  under
 `/usr/share/locale` (or `/usr/lib/locale` in some distributions).
