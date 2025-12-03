@@ -15,7 +15,7 @@ The `gettimeofday()` system call returns the calendar time in the buffer pointed
 to by `tv`. The `tz` argument to `gettimeofday()` is  a  historical  artifac nd
 should always be specified as NULL.
 
-```
+```c
 #include <sys/time.h>
 
 int gettimeofday(struct timeval *tv, struct timezone *tz);
@@ -23,7 +23,7 @@ int gettimeofday(struct timeval *tv, struct timezone *tz);
 
 The `time()` system call returns the number of seconds since the Epoch.
 
-```
+```c
 #include <time.h>
 
 time_t time(time_t *timep);
@@ -34,7 +34,7 @@ time_t time(time_t *timep);
 The `ctime()` function  provides  a  simple  method  of  converting  a  `time_t`
 value  intoprintable form.
 
-```
+```c
 #include <time.h>
 
 char *ctime(const time_t *timep);
@@ -48,7 +48,7 @@ format.
 The `gmtime()` and `localtime()` functions convert a `time_t` value into a so-called
 broken-down time.
 
-```
+```c
 #include <time.h>
 
 struct tm *gmtime(const time_t *timep);
@@ -63,7 +63,7 @@ a broken-downtime corresponding to the system’s local time.
 The `mktime()` function translates a broken-down time, expressed as local
 time, into a `time_t` value, which is returned as the function result. 
 
-```
+```c
 #include <time.h>
 
 time_t mktime(struct tm *timeptr);
@@ -85,7 +85,7 @@ Given  a  pointer  to  a  broken-down  time  structure  in  the  argument  `tm`,
 `asctime()` returns  a  pointer  to  a  statically  allocated  string  containing
 the  time  in  the  sameform as `ctime()`.
 
-```
+```c
 #include <time.h>
 
 char *asctime(const struct tm *timeptr);
@@ -100,7 +100,7 @@ converting  a broken-down  time  into  printable  form.  Given  a  broken-down
 time  pointed  to  by `timeptr`, `strftime()`  places  a  corresponding
 null-terminated,  date-plus-time  string  in the buffer pointed to by `outstr`.
 
-```
+```c
 #include <time.h>
 
 size_t strftime(char *outstr, size_t maxsize, const char *format,
@@ -111,7 +111,7 @@ The `strptime()` function uses the specification given in format to parse the
 date-plus-time string given in `str`, and places the converted broken-down time
 in the structure pointed to by `timeptr`.
 
-```
+```c
 #define _XOPEN_SOURCE
 #include <time.h>
 
@@ -139,7 +139,7 @@ and `adjtime()`.  These  interfaces  are  rarely  used  by  application  program
 (since  the  sys-tem time is usually maintained by tools such as the _Network
 Time Protocol daemon_), and they require that the caller be privileged (`CAP_SYS_TIME`).
 
-```
+```c
 #define _BSD_SOURCE
 #include <sys/time.h>
 
@@ -154,7 +154,7 @@ Abrupt changes in the system time have  deleterious  effects  on  applications.
 It is usually preferable to use the `adjtime()` library function, which causes the
 system clock to gradually adjust to the desired value.
 
-```
+```c
 #define _BSD_SOURCE
 #include <sys/time.h>
 
@@ -185,7 +185,7 @@ The kernel separates CPU time into:
 
 The `times()` system call retrieves process time information.
 
-```
+```c
 #include <sys/times.h>
 
 clock_t times(struct tms *buf);
@@ -198,7 +198,7 @@ The `clock()`  function  provides  a  simpler  interface  for  retrieving  the
 process time. It returns a single value that measures the total (i.e., user plus
 system) CPU time used by the calling process.
 
-```
+```c
 #nclude <time.h>
 
 clock_t clock(void);
