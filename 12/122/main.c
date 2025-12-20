@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 #define PROC_MAX 10000
-#define CHILD_MAX 10
+#define CHILD_MAX 100
 #define BUFSIZE 1024
 
 int childcnt[PROC_MAX] = {0}; // child count of a PID
@@ -43,8 +43,9 @@ void printtree(int pid, int level) {
   printf("%s\n", buffer);
   printed[pid] = 1;
 
-  for (int i = 0; i < childcnt[pid]; i++) {
-    printtree(childs[pid][i], level + 1);
+  for (int i = 0; i < CHILD_MAX; i++) {
+    if (childs[pid][i])
+      printtree(childs[pid][i], level + 1);
   }
 }
 
@@ -87,7 +88,7 @@ void getproc(uid_t in_uid, char *pidnam) {
 
   childs[ppid][childcnt[ppid] - 1] = pid;
   cmd[pid] = cmdb;
-  // printf("pid: %ld, ppid: %ld, cmd: %s\n", (long) pid, (long) ppid, cmd[pid]);
+  // printf("pid: %ld, ppid: %ld, cmd: %s\n", (long) pid, (long) ppid, cmdb);
 }
 
 int isnumber(char *s) {
